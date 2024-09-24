@@ -8,94 +8,210 @@ public class MyTests {
     @Test
     public void testLLRotation() {
         AVL avl = new AVL();
+        avl.BSTinsert(8);
+        avl.BSTinsert(6);
+        avl.BSTinsert(4);
+        avl.BSTinsert(9);
+        avl.BSTinsert(7);
         avl.BSTinsert(3);
-        avl.BSTinsert(2);
-        avl.BSTinsert(1);
+        avl.BSTinsert(5);
         avl.LL_rot();
-        assertEquals(2, avl.root.data);
-        assertEquals(1, avl.root.left.data);
-        assertEquals(3, avl.root.right.data);
+        assertEquals(6, avl.root.data);
+        assertEquals(4, avl.root.left.data);
+        assertEquals(8, avl.root.right.data);
+        assertEquals(3, avl.root.left.left.data);
+        assertEquals(5, avl.root.left.right.data);
+        assertEquals(7, avl.root.right.left.data);
+        assertEquals(9, avl.root.right.right.data);
     }
 
     @Test
     public void testLRRotation() {
         AVL avl = new AVL();
+        avl.BSTinsert(8);
+        avl.BSTinsert(4);
+        avl.BSTinsert(6);
+        avl.BSTinsert(9);
         avl.BSTinsert(3);
-        avl.BSTinsert(1);
-        avl.BSTinsert(2);
+        avl.BSTinsert(5);
+        avl.BSTinsert(7);
         avl.LR_rot();
-        assertEquals(2, avl.root.data);
-        assertEquals(1, avl.root.left.data);
-        assertEquals(3, avl.root.right.data);
+        assertEquals(6, avl.root.data);
+        assertEquals(4, avl.root.left.data);
+        assertEquals(8, avl.root.right.data);
+        assertEquals(3, avl.root.left.left.data);
+        assertEquals(5, avl.root.left.right.data);
+        assertEquals(7, avl.root.right.left.data);
+        assertEquals(9, avl.root.right.right.data);
     }
 
     @Test
     public void testRRRotation() {
         AVL avl = new AVL();
+        avl.BSTinsert(4);
         avl.BSTinsert(1);
-        avl.BSTinsert(2);
-        avl.BSTinsert(3);
+        avl.BSTinsert(6);
+        avl.BSTinsert(5);
+        avl.BSTinsert(8);
+        avl.BSTinsert(7);
+        avl.BSTinsert(9);
         avl.RR_rot();
-        assertEquals(2, avl.root.data);
-        assertEquals(1, avl.root.left.data);
-        assertEquals(3, avl.root.right.data);
+        assertEquals(6, avl.root.data);
+        assertEquals(4, avl.root.left.data);
+        assertEquals(8, avl.root.right.data);
+        assertEquals(1, avl.root.left.left.data);
+        assertEquals(5, avl.root.left.right.data);
+        assertEquals(7, avl.root.right.left.data);
+        assertEquals(9, avl.root.right.right.data);
     }
 
     @Test
     public void testRLRotation() {
         AVL avl = new AVL();
-        avl.BSTinsert(1);
-        avl.BSTinsert(3);
         avl.BSTinsert(2);
+        avl.BSTinsert(6);
+        avl.BSTinsert(1);
+        avl.BSTinsert(7);
+        avl.BSTinsert(4);
+        avl.BSTinsert(5);
+        avl.BSTinsert(3);
         avl.RL_rot();
-        assertEquals(2, avl.root.data);
-        assertEquals(1, avl.root.left.data);
-        assertEquals(3, avl.root.right.data);
+        assertEquals(4, avl.root.data);
+        assertEquals(2, avl.root.left.data);
+        assertEquals(6, avl.root.right.data);
+        assertEquals(1, avl.root.left.left.data);
+        assertEquals(3, avl.root.left.right.data);
+        assertEquals(5, avl.root.right.left.data);
+        assertEquals(7, avl.root.right.right.data);
     }
 
     @Test
-    public void testInsert() {
+    public void testInsertLLRotation() {
         AVL avl = new AVL();
+        avl.insert(7);
+        avl.insert(5);
         avl.insert(3);
-        avl.insert(2);
-        avl.insert(1);
-        assertEquals(2, avl.root.data);
-        assertEquals(1, avl.root.left.data);
-        assertEquals(3, avl.root.right.data);
+        assertEquals(5, avl.root.data);
+        assertEquals(3, avl.root.left.data);
+        assertEquals(7, avl.root.right.data);
     }
 
     @Test
-    public void testDelete() {
+    public void testInsertLRRotation() {
         AVL avl = new AVL();
-        avl.insert(3);
+        avl.insert(8);
+        avl.insert(4);
+        avl.insert(6);
+        assertEquals(6, avl.root.data);
+        assertEquals(4, avl.root.left.data);
+        assertEquals(8, avl.root.right.data);
+    }
+
+    @Test
+    public void testInsertRRRotation() {
+        AVL avl = new AVL();
         avl.insert(2);
         avl.insert(4);
-        avl.insert(1);
-        avl.delete(4);
-        assertEquals(2, avl.root.data);
-        assertEquals(1, avl.root.left.data);
-        assertEquals(3, avl.root.right.data);
-        assertNull(avl.root.right.right);
-    }
-
-    private boolean isBalanced(Node node) {
-        if (node == null) {
-            return true;
-        }
-        int leftHeight = AVL.getHeight(node.left);
-        int rightHeight = AVL.getHeight(node.right);
-        return Math.abs(leftHeight - rightHeight) <= 1 
-               && isBalanced(node.left) 
-               && isBalanced(node.right);
+        avl.insert(6);
+        assertEquals(4, avl.root.data);
+        assertEquals(2, avl.root.left.data);
+        assertEquals(6, avl.root.right.data);
     }
 
     @Test
-    public void testTreeBalance() {
+    public void testInsertRLRotation() {
         AVL avl = new AVL();
-        int[] values = {9, 5, 10, 0, 6, 11, -1, 1, 2};
-        for (int value : values) {
-            avl.insert(value);
-        }
-        assertTrue(isBalanced(avl.root));
+        avl.insert(1);
+        avl.insert(4);
+        avl.insert(2);
+        assertEquals(2, avl.root.data);
+        assertEquals(1, avl.root.left.data);
+        assertEquals(4, avl.root.right.data);
+    }
+
+    @Test
+    public void testDeleteLL() {
+        AVL avl = new AVL();
+        avl.insert(8);
+        avl.insert(6);
+        avl.insert(9);
+        avl.insert(5);
+        avl.insert(7);
+        avl.insert(10);
+        avl.insert(4);
+        avl.delete(10);
+        assertEquals(6, avl.root.data);
+        assertEquals(5, avl.root.left.data);
+        assertEquals(8, avl.root.right.data);
+        assertEquals(4, avl.root.left.left.data);
+        assertEquals(7, avl.root.right.left.data);
+        assertEquals(9, avl.root.right.right.data);
+    }
+
+    @Test
+    public void testDeleteRR() {
+        AVL avl = new AVL();
+        avl.insert(3);
+        avl.insert(6);
+        avl.insert(2);
+        avl.insert(7);
+        avl.insert(5);
+        avl.insert(1);
+        avl.insert(8);
+        avl.delete(1);
+        assertEquals(6, avl.root.data);
+        assertEquals(3, avl.root.left.data);
+        assertEquals(7, avl.root.right.data);
+        assertEquals(2, avl.root.left.left.data);
+        assertEquals(5, avl.root.left.right.data);
+        assertEquals(8, avl.root.right.right.data);
+    }
+
+    @Test
+    public void testDeleteLR() {
+        AVL avl = new AVL();
+        avl.insert(8);
+        avl.insert(5);
+        avl.insert(9);
+        avl.insert(4);
+        avl.insert(7);
+        avl.insert(10);
+        avl.insert(6);
+        avl.delete(10);
+        assertEquals(7, avl.root.data);
+        assertEquals(5, avl.root.left.data);
+        assertEquals(8, avl.root.right.data);
+        assertEquals(4, avl.root.left.left.data);
+        assertEquals(6, avl.root.left.right.data);
+        assertEquals(9, avl.root.right.right.data);
+    }
+
+    @Test
+    public void testDeleteRL() {
+        AVL avl = new AVL();
+        avl.insert(5);
+        avl.insert(2);
+        avl.insert(10);
+        avl.insert(1);
+        avl.insert(4);
+        avl.insert(7);
+        avl.insert(11);
+        avl.insert(3);
+        avl.insert(6);
+        avl.insert(9);
+        avl.insert(12);
+        avl.insert(8);
+        avl.delete(1);
+        assertEquals(7, avl.root.data);
+        assertEquals(5, avl.root.left.data);
+        assertEquals(10, avl.root.right.data);
+        assertEquals(3, avl.root.left.left.data);
+        assertEquals(6, avl.root.left.right.data);
+        assertEquals(9, avl.root.right.left.data);
+        assertEquals(11, avl.root.right.right.data);
+        assertEquals(2, avl.root.left.left.left.data);
+        assertEquals(4, avl.root.left.left.right.data);
+        assertEquals(8, avl.root.right.left.left.data);
+        assertEquals(12, avl.root.right.right.right.data);
     }
 }
