@@ -37,8 +37,20 @@ public class AVL {
     //    / \
     //  Cl   Cr
     public Node LL_Rotate(Node A) {
-        // REPLACE WITH YOUR CODE
-        return null;
+        Node B = A.left;
+        Node Br = B.right;
+
+        // Reorder children
+        A.left = Br;
+        B.right = A;
+
+        // Fix heights: new heights will be max of height of children subtrees
+        // plus one for the node itself
+        A.height = Math.max(getHeight(A.left), getHeight(A.right)) + 1;
+        B.height = Math.max(getHeight(B.left), getHeight(B.right)) + 1;
+
+        // Return new root
+        return B;
     }
 
     //      A                             C
